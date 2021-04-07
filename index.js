@@ -23,7 +23,8 @@ app.post('/contact', async (req, res) => {
       pass: process.env.MAIL_PASSWORD,
     },
   });
-  const mailOptions = {
+
+  const mailOwner = {
     from: process.env.MAIL_ADDRESS,
     to: process.env.MAIL_ADDRESS,
     subject: "Contact CV",
@@ -36,15 +37,32 @@ app.post('/contact', async (req, res) => {
       </ul>
       <h2>Message :</h2>
       <p>${message}</p>
-    `, // A revoir pour envoyez name / message /email  (exemple : `<h1>${email}</h1>`)
+    `,
   };
-  transporter.sendMail(mailOptions, (error) => {
+  transporter.sendMail(mailOwner, (error) => {
     if (error) {
       return res.status(500).json({status: 'erreur'});
     }
   });
-  // send a validation email to the prospect
-  // sendValidationMail(prospect)
+
+  const mailUser = {
+    from: process.env.MAIL_ADDRESS,
+    to: email,
+    subject: "Accusé de réception de votre demande",
+    html: `
+      <h2>Bonjour ${name},</h2>
+      <p>Merci d'avoir pris le temps de me contacter.</p>
+      <p>Je reviens vers vous au plus vite !</p>
+      <p>Cordialement,</p>
+      <h3>Bochereau Antoine</h3>
+    `,
+  };
+  transporter.sendMail(mailUser, (error) => {
+    if (error) {
+      return res.status(500).json({status: 'erreur'});
+    }
+  });
+  // sendValidationMail in network
   return res.status(201).json({status: 'succes'});
 })
 
