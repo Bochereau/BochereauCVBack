@@ -66,6 +66,9 @@ app.post('/contact', async (req, res) => {
   return res.status(201).json({status: 'succes'});
 })
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+  PORT = 8000;
+}
 
 app.listen(PORT, () => console.log(`Server start at http://localhost:${PORT};`))
