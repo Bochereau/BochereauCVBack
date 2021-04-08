@@ -9,10 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', function(_req, res) {
-  res.send('hello world');
-});
-
 app.post('/contact', async (req, res) => {
   const {
     name,
