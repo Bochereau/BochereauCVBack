@@ -17,7 +17,9 @@ app.post('/contact', async (req, res) => {
   } = req.body;
 
   const transporter = nodemailer.createTransport({
-    service: "laposte",
+    tls: {
+			rejectUnauthorized:false,//Laisser à false si vos certificat ne sont pas à jour
+    },
     auth: {
       user: process.env.MAIL_ADDRESS,
       pass: process.env.MAIL_PASSWORD,
