@@ -17,7 +17,7 @@ app.post('/contact', async (req, res) => {
   } = req.body;
 
   const transporter = nodemailer.createTransport({
-    service: "outlook",
+    service: "laposte",
     auth: {
       user: process.env.MAIL_ADDRESS,
       pass: process.env.MAIL_PASSWORD,
@@ -26,7 +26,7 @@ app.post('/contact', async (req, res) => {
 
   const mailOwner = {
     from: process.env.MAIL_ADDRESS,
-    to: process.env.MAIL_ADDRESS,
+    to: 'antoine_bochereau@hotmail.com',
     subject: "Contact CV",
     html: `
       <p>Nouvel email du site CV</p>
